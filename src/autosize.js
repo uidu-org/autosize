@@ -14,16 +14,22 @@ const set = (typeof Set === "function") ? new Set() : (function () {
 	}
 })();
 
-let createEvent = (name)=> new Event(name);
-try {
-	new Event('test');
-} catch(e) {
-	// IE does not support `new Event()`
-	createEvent = (name)=> {
-		const evt = document.createEvent('Event');
-		evt.initEvent(name, true, false);
-		return evt;
-	};
+// let createEvent = (name)=> new Event(name);
+// try {
+// 	new Event('test');
+// } catch(e) {
+// 	// IE does not support `new Event()`
+// 	createEvent = (name)=> {
+// 		const evt = document.createEvent('Event');
+// 		evt.initEvent(name, true, false);
+// 		return evt;
+// 	};
+// }
+
+function createEvent(name) {
+	const evt = document.createEvent('Event');
+	evt.initEvent(name, true, false);
+	return evt;
 }
 
 function assign(ta, {setOverflowX = true, setOverflowY = true} = {}) {

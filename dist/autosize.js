@@ -18,7 +18,7 @@
 })(this, function (exports, module) {
 	'use strict';
 
-	var set = typeof Set === 'function' ? new Set() : (function () {
+	var set = typeof Set === "function" ? new Set() : (function () {
 		var list = [];
 
 		return {
@@ -30,25 +30,30 @@
 			},
 			'delete': function _delete(key) {
 				list.splice(list.indexOf(key), 1);
-			} };
+			}
+		};
 	})();
 
-	var createEvent = function createEvent(name) {
-		return new Event(name);
-	};
-	try {
-		new Event('test');
-	} catch (e) {
-		// IE does not support `new Event()`
-		createEvent = function (name) {
-			var evt = document.createEvent('Event');
-			evt.initEvent(name, true, false);
-			return evt;
-		};
+	// let createEvent = (name)=> new Event(name);
+	// try {
+	// 	new Event('test');
+	// } catch(e) {
+	// 	// IE does not support `new Event()`
+	// 	createEvent = (name)=> {
+	// 		const evt = document.createEvent('Event');
+	// 		evt.initEvent(name, true, false);
+	// 		return evt;
+	// 	};
+	// }
+
+	function createEvent(name) {
+		var evt = document.createEvent('Event');
+		evt.initEvent(name, true, false);
+		return evt;
 	}
 
 	function assign(ta) {
-		var _ref = arguments[1] === undefined ? {} : arguments[1];
+		var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
 		var _ref$setOverflowX = _ref.setOverflowX;
 		var setOverflowX = _ref$setOverflowX === undefined ? true : _ref$setOverflowX;
@@ -178,7 +183,8 @@
 			resize: ta.style.resize,
 			overflowY: ta.style.overflowY,
 			overflowX: ta.style.overflowX,
-			wordWrap: ta.style.wordWrap });
+			wordWrap: ta.style.wordWrap
+		});
 
 		ta.addEventListener('autosize:destroy', destroy, false);
 
